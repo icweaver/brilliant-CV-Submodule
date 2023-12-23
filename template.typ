@@ -57,12 +57,13 @@
   nephritis: rgb("#27AE60"),
   concrete: rgb("#95A5A6"),
   darknight: rgb("#131A28"),
+  orange: rgb("#ff6138"),
 )
 
 #let regularColors = (
   subtlegray: rgb("#ededee"),
-  lightgray: rgb("#343a40"),
-  darkgray: rgb("#212529"),
+  lightgray: red,
+  darkgray: rgb("#414141"),
 )
 
 #let accentColor = {
@@ -73,8 +74,8 @@
   }
 }
 
-#let beforeSectionSkip = 1pt
-#let beforeEntrySkip = 1pt
+#let beforeSectionSkip = 10pt
+#let beforeEntrySkip = 4pt
 #let beforeEntryDescriptionSkip = 1pt
 
 #let headerFirstNameStyle(str) = {text(
@@ -106,7 +107,7 @@
   str
 )}
 
-#let sectionTitleStyle(str, color:black) = {text(
+#let sectionTitleStyle(str, color:regularColors.darkgray) = {text(
   size: 16pt, 
   weight: "bold", 
   fill: color,
@@ -143,7 +144,7 @@
 ))}
 
 #let entryDescriptionStyle(str) = {text(
-  fill: regularColors.lightgray,
+  fill: regularColors.darkgray,
   {
     v(beforeEntryDescriptionSkip)
     str
@@ -179,16 +180,19 @@
 )}
 
 #let honorDateStyle(str) = {align(right, text(
+  fill: regularColors.darkgray,
   str))
 }
 
 #let honorTitleStyle(str) = {text(
   weight: "bold",
+  fill: regularColors.darkgray,
   str
 )}
 
 #let honorIssuerStyle(str) = {text(
-  str
+  fill: regularColors.darkgray,
+  str,
 )}
 
 #let honorLocationStyle(str) = {align(right, text(
@@ -199,7 +203,8 @@
 ))}
 
 #let publicationStyle(str) = {text(
-  str
+  str,
+  fill: regularColors.darkgray,
 )}
 
 #let footerStyle(str) = {text(
@@ -309,7 +314,7 @@
     row-gutter: 6mm,
     [#headerFirstNameStyle(firstName) #h(5pt) #headerLastNameStyle(lastName)],
     [#headerInfoStyle(makeHeaderInfo())],
-    [#headerQuoteStyle(languageSwitch(headerQuoteInternational))]
+    // [#headerQuoteStyle(languageSwitch(headerQuoteInternational))]
   )
 
 
@@ -348,9 +353,9 @@
   } else {
     if highlighted {
     sectionTitleStyle(highlightText, color: accentColor)
-    sectionTitleStyle(normalText, color: black)
+    sectionTitleStyle(normalText, color: regularColors.darkgray)
     } else {
-      sectionTitleStyle(title, color: black)
+      sectionTitleStyle(title, color: regularColors.darkgray)
     }
   }
   h(2pt)
@@ -435,24 +440,23 @@
     honorDateStyle(date),
     if issuer == "" {
       honorTitleStyle(title)
-    } else if link != "" { [
+    } else if url != "" { [
       #honorTitleStyle(link(url)[#title]), #honorIssuerStyle(issuer)
     ] } else { [
-      #honorTitleStyle(title), #honorIssuerStyle(issuer)
+      #honorTitleStyle(title)\ #honorIssuerStyle(issuer)
     ]},
     honorLocationStyle(location)
   )
-  v(-6pt)
+  // v(-6pt)
 }
 
 #let cvPublication(
   bibPath: "",
   keyList: list(),
   refStyle: "apa",
-  refFull: true,
 ) = {
   show bibliography: it => publicationStyle(it)
-  bibliography(bibPath, title: none, style: refStyle, full: refFull)
+  bibliography(bibPath, title: none, style: refStyle, full: true)
 }
 
 #let cvFooter() = {
