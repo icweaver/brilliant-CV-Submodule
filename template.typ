@@ -435,7 +435,7 @@
     columns: (16%, 1fr, 15%),
     inset: 0pt,
     column-gutter: 10pt,
-    align: horizon,
+    align: horizon ,
     stroke: none,
     honorDateStyle(date),
     if issuer == "" {
