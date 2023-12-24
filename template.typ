@@ -115,6 +115,7 @@
 )}
 
 #let entryA1Style(str) = {text(
+  fill: black,
   size: 10pt,
   weight: "bold",
   str
@@ -353,9 +354,9 @@
   } else {
     if highlighted {
     sectionTitleStyle(highlightText, color: accentColor)
-    sectionTitleStyle(normalText, color: regularColors.darkgray)
+    sectionTitleStyle(normalText)
     } else {
-      sectionTitleStyle(title, color: regularColors.darkgray)
+      sectionTitleStyle(title)
     }
   }
   h(2pt)
@@ -458,6 +459,19 @@
   show bibliography: it => publicationStyle(it)
   bibliography(bibPath, title: none, style: refStyle, full: true)
 }
+
+#let cvList(
+  title: "Hi",
+  items: [Ok],
+  color: regularColors.darkgray,
+) = [
+  == #title
+
+  #set text(color)
+  #items
+]
+
+
 
 #let cvFooter() = {
   place(
