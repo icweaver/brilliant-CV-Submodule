@@ -471,7 +471,19 @@
   #items
 ]
 
-
+#let cvLine(
+  l: [Hi],
+  r: [Date],
+) = [
+  #table(
+    columns: (auto, 1fr),
+    align: (auto, right),
+    stroke: none,
+    inset: 0pt,
+    [#l],
+    [#entryA2Style([#r])],
+  )
+]
 
 #let cvFooter() = {
   place(
